@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://kikutibee-rgb.github.io/TEST/sitemap.xml
