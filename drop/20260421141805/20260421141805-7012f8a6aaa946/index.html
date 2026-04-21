@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>THIS METHOD FELT OFF PATTERN | PEOPLE FOUND THIS BY CHANCE / THEN WATCHED</title>
+  <meta name="description" content="THIS METHOD FELT OFF PATTERN PEOPLE FOUND THIS BY CHANCE / THEN WATCHED OPEN THIS LINK">
+  <link rel="canonical" href="https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805-7012f8a6aaa946/index.html">
+  <style>
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;background:#0f1115;color:#e9edf1;line-height:1.6;}
+    .wrap{max-width:980px;margin:0 auto;padding:24px;}
+    .card{background:#171a21;border:1px solid #2a2f3a;border-radius:20px;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.22);}
+    .hero{padding:20px 20px 8px;}
+    h1{font-size:clamp(24px,3vw,40px);margin:0 0 8px;}
+    p{margin:0 0 12px;color:#c9d1d9;}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#242937;color:#aab4c0;font-size:12px;margin:0 8px 8px 0;}
+    .gate{padding:18px 20px;border-top:1px solid #2a2f3a;}
+    .locked{background:#11141a;padding:16px;border-radius:14px;color:#ffcf99;border:1px solid #40311d;}
+    .viewer{display:none;padding:0 20px 20px;}
+    .viewer img{max-width:100%;height:auto;display:block;border-radius:16px;border:1px solid #2a2f3a;}
+    .btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:12px;background:#5b8cff;color:#fff;text-decoration:none;font-weight:700;}
+    .meta{font-size:13px;color:#9aa4b1;margin-top:10px;word-break:break-all;}
+    ul{padding-left:20px;margin:10px 0 0;}
+    a{color:#8ab4ff;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="hero">
+        <div class="badge">Big1のサンプル項目, Middle1のサンプル項目, Small1のサンプル項目</div>
+        <h1 id="title">THIS METHOD FELT OFF PATTERN | PEOPLE FOUND THIS BY CHANCE / THEN WATCHED</h1>
+        <p id="desc">THIS METHOD FELT OFF PATTERN PEOPLE FOUND THIS BY CHANCE / THEN WATCHED OPEN THIS LINK</p>
+        <div class="meta">expires: <span id="exp"></span> / token: <span id="gt"></span></div>
+      </div>
+      <div class="gate">
+        <div id="locked" class="locked">確認中です。条件が合うブラウザだけ画像とリンクを表示します。</div>
+        <div id="viewer" class="viewer">
+          <img id="img" alt="THIS METHOD FELT OFF PATTERN PEOPLE FOUND THIS BY CHANCE / THEN WATCHED" src="https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805_81501c145f.png">
+          <a id="btn" class="btn" href="#" rel="noopener noreferrer nofollow">開く</a>
+          <div class="meta">source: https://kikutibee-rgb.github.io/TEST/</div>
+          <div class="meta">related:</div>
+          <ul id="related"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const META = {"gt": "7012f8a6aaa946", "exp": "1777007885", "exp_unix": 1777007885, "salt": "20260421141805", "sig": "9ea631354be70859250069cf21806fc6b5da734ad308191c22a58d6a6ea5a6c8", "title": "THIS METHOD FELT OFF PATTERN | PEOPLE FOUND THIS BY CHANCE / THEN WATCHED", "description": "THIS METHOD FELT OFF PATTERN PEOPLE FOUND THIS BY CHANCE / THEN WATCHED OPEN THIS LINK", "image_url": "https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805_81501c145f.png", "final_link": "#", "page_url": "https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805-7012f8a6aaa946/index.html", "categories": ["Big1のサンプル項目", "Middle1のサンプル項目", "Small1のサンプル項目"], "alt": "THIS METHOD FELT OFF PATTERN PEOPLE FOUND THIS BY CHANCE / THEN WATCHED", "source": "https://kikutibee-rgb.github.io/TEST/", "pub_unix": 1776748685, "related": [{"title": "20260421141805_4ff04bf54b.webp", "url": "https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805_4ff04bf54b.webp"}, {"title": "20260421141805_396f1a9cad.jpeg", "url": "https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805_396f1a9cad.jpeg"}, {"title": "20260421141805_80a1e7c822.png", "url": "https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805_80a1e7c822.png"}, {"title": "20260421141805_c1e9e6cf02.jpeg", "url": "https://kikutibee-rgb.github.io/TEST/drop/20260421141805/20260421141805_c1e9e6cf02.jpeg"}]};
+    const PUBLIC_PEPPER = "kikutibee-rgb|TEST";
+    const locked = document.getElementById('locked');
+    const viewer = document.getElementById('viewer');
+    const expEl = document.getElementById('exp');
+    const gtEl = document.getElementById('gt');
+    const relatedEl = document.getElementById('related');
+    expEl.textContent = META.exp;
+    gtEl.textContent = META.gt;
+
+    function fail(msg) {
+      locked.textContent = msg;
+      locked.style.color = '#ffd1d1';
+      locked.style.borderColor = '#7a2d2d';
+      viewer.style.display = 'none';
+    }
+
+    async function sha256(text) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function fingerprint() {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      const raw = [
+        navigator.userAgent || '',
+        navigator.language || '',
+        tz,
+        screen.width + 'x' + screen.height,
+        screen.colorDepth || '',
+        navigator.platform || '',
+        navigator.hardwareConcurrency || '',
+        navigator.deviceMemory || ''
+      ].join('|');
+      return await sha256(raw);
+    }
+
+    async function main() {
+      try {
+        const now = Math.floor(Date.now() / 1000);
+        if (now > Number(META.exp_unix)) {
+          fail('期限切れです。');
+          return;
+        }
+
+        const fp = await fingerprint();
+        const fpKey = 'fp_' + META.gt;
+        const seenKey = 'seen_' + META.gt;
+        const storedFp = localStorage.getItem(fpKey);
+        if (storedFp && storedFp !== fp) {
+          fail('このブラウザでは再利用できません。');
+          return;
+        }
+        const sig = await sha256([META.gt, META.exp, META.salt, META.image_url, META.final_link, PUBLIC_PEPPER].join('|'));
+        if (sig !== META.sig) {
+          fail('署名が一致しません。');
+          return;
+        }
+        if (localStorage.getItem(seenKey) === '1') {
+          fail('同一ブラウザ再訪は無効です。');
+          return;
+        }
+
+        localStorage.setItem(fpKey, fp);
+        localStorage.setItem(seenKey, '1');
+        sessionStorage.setItem(seenKey, '1');
+
+        locked.style.display = 'none';
+        viewer.style.display = 'block';
+
+        relatedEl.innerHTML = '';
+        (META.related || []).slice(0, 8).forEach((x) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = x.url;
+          a.textContent = x.title;
+          a.rel = 'noopener noreferrer';
+          li.appendChild(a);
+          relatedEl.appendChild(li);
+        });
+      } catch (e) {
+        fail('閲覧に失敗しました。');
+      }
+    }
+    main();
+  </script>
+</body>
+</html>
