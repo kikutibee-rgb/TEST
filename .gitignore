@@ -1,9 +1,8 @@
 *
 !drop/
+!pages/
 !rss.xml
 !sitemap.xml
-!robots.txt
 !index.html
 !.gitignore
 !rss_url_for_pinterest.txt
-!category/
