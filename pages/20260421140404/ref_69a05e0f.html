@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADVANCED STUDY TREND | WHAT IS INSIDE / SURPRISE FACTOR</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    body { background: #111; color: #eee; font-family: monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+    .container { background: #222; padding: 2rem; border-radius: 8px; max-width: 600px; text-align: center; border: 1px solid #333; }
+    img { max-width: 100%; height: auto; margin: 1rem 0; border: 1px solid #444; }
+    .btn { display: inline-block; background: #0066cc; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 4px; margin-top: 1rem; }
+    #content { display: none; }
+  </style>
+</head>
+<body>
+  <div id="auth-status">Verifying cryptographic integrity...</div>
+  
+  <div id="content" class="container">
+      <h2 id="c-title"></h2>
+      <p id="c-desc" style="color: #888;"></p>
+      <img id="c-img" src="" alt="Secured Asset">
+      <a id="c-link" href="#" class="btn" rel="nofollow">Access Data</a>
+  </div>
+
+  <script>
+    const ENCODED = "SxsvQDw+E1MeFw5EaC03OD1aQkZFKFISDUVDBFhZVVdSUgVIV10CDXIGMTUUHVIAAlVnS0ddXhlWUldxVVNRR00SQ0wMFlsHQV9FR3F9CXMdFzN0SmZgMQ4gUj87PSAiRz0WZ38kNRIoa0UreTEqISBFHxkMZwEEJHk5cBQiCzomJDtaQkZFJVNDVEdbEkN5ITR2LCAgIUVjbQp2CnQiYi97cEQdMTM/STE9Ri4PZXlzIEEdQWswMGcwKjYgRXZ4HGYcBlZ/OnB6RB4xOzhJOyEzNRJzEGckJndDFEVAQwMRAgARZUszEGl0VBNIGRRGIxQTDAwqCwpFexYSGUtOHE8XARBYEkxXVVcGCWsAYmVCAF4FAEsjFBU0WUhZSBAkVEAVSUEQFVcOB1lAWUVHVQlmbWEHIkZaXwFQLjMLGQIRFggBJmMaEBUAGUJDAkVQB1tRVFVSCA1qHnN2BVEGQRZealtEW14dD1QGeVNSAAcCVwRdR04XQBAMAkcKGX0LMGRDBVwBBQZzHRdbC0FaUwR0DgYGV1gKAAgEVQcHBVcAVQJaPAthN0dWCAQGXXofFF0NSFkCA3YGCAVcVAFYGhg=";
+    
+    async function sha256Hex(text) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function xorDecode(encoded, key) {
+      const raw = atob(encoded);
+      let out = "";
+      for (let i = 0; i < raw.length; i++) {
+        out += String.fromCharCode(raw.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+      }
+      return out;
+    }
+
+    async function init() {
+      const params = new URLSearchParams(location.search);
+      const urlToken = params.get("t");
+      const urlExp = Number(params.get("e") || "0");
+      const urlSalt = params.get("s") || "";
+      const now = Math.floor(Date.now() / 1000);
+
+      const status = document.getElementById("auth-status");
+
+      if (!urlToken || !urlSalt || !urlExp) { status.textContent = "ERR: Missing parameters."; return; }
+      
+      let data;
+      try {
+          const decoded = xorDecode(ENCODED, urlToken + urlSalt);
+          data = JSON.parse(decoded);
+      } catch (e) { status.textContent = "ERR: Payload corruption."; return; }
+
+      // Signature verification
+      const sigCheck = await sha256Hex(`${data.project}|${data.id}|${data.token}|${data.exp}|${data.salt}`);
+      if (sigCheck !== data.sig || urlToken !== data.token || urlSalt !== data.salt) {
+          status.textContent = "ERR: Signature mismatch."; return;
+      }
+      if (now > data.exp) { status.textContent = "ERR: Token expired."; return; }
+
+      // LocalStorage duplicate check (Fingerprinting concept)
+      const storageKey = `ref_visited_${data.id}`;
+      if (localStorage.getItem(storageKey)) {
+          status.textContent = "ERR: Data already accessed in this environment."; return;
+      }
+      localStorage.setItem(storageKey, "1");
+
+      // Render content
+      document.getElementById("c-title").textContent = data.title;
+      document.getElementById("c-desc").textContent = data.desc;
+      document.getElementById("c-img").src = data.imageRel;
+      document.getElementById("c-link").href = data.targetUrl;
+      
+      status.style.display = "none";
+      document.getElementById("content").style.display = "block";
+      
+      // Clean URL
+      history.replaceState({}, "", location.pathname);
+    }
+    
+    init();
+  </script>
+</body>
+</html>
